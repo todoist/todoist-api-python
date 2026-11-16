@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - Support for Python 3.9 (EOL).
+- **Breaking**: Support for Python 3.10, which reached [end of life](https://peps.python.org/pep-0619/#lifespan) on October 1, 2026. Python 3.11 or newer is required.
 
 ### Changed
 
