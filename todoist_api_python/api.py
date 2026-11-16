@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-import sys
 from collections.abc import Callable, Iterator
-from typing import TYPE_CHECKING, Annotated, Any, Literal, TypeVar
+from typing import TYPE_CHECKING, Annotated, Any, Literal, Self, TypeVar
 from weakref import finalize
 
 import httpx2
@@ -60,11 +59,6 @@ if TYPE_CHECKING:
     from types import TracebackType
 
     from todoist_api_python.types import ColorString, LanguageCode, ViewStyle
-
-if sys.version_info >= (3, 11):
-    from typing import Self
-else:
-    Self = TypeVar("Self", bound="TodoistAPI")
 
 
 class TodoistAPI:

@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-import sys
 import warnings
 from collections.abc import AsyncIterator, Callable
-from typing import TYPE_CHECKING, Annotated, Any, Literal, TypeVar
+from typing import TYPE_CHECKING, Annotated, Any, Literal, Self, TypeVar
 
 import httpx2
 from annotated_types import Ge, Le, MaxLen, MinLen
@@ -60,11 +59,6 @@ if TYPE_CHECKING:
     from types import TracebackType
 
     from todoist_api_python.types import ColorString, LanguageCode, ViewStyle
-
-if sys.version_info >= (3, 11):
-    from typing import Self
-else:
-    Self = TypeVar("Self", bound="TodoistAPIAsync")
 
 
 class TodoistAPIAsync:

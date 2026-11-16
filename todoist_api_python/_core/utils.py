@@ -1,14 +1,8 @@
 from __future__ import annotations
 
-import sys
 import uuid
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 from typing import TypeVar
-
-if sys.version_info >= (3, 11):
-    from datetime import UTC
-else:
-    UTC = timezone.utc
 
 
 def format_date(d: date) -> str:
