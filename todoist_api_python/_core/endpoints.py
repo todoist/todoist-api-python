@@ -32,6 +32,7 @@ SHARED_LABELS_RENAME_PATH = f"{SHARED_LABELS_PATH}/rename"
 SHARED_LABELS_REMOVE_PATH = f"{SHARED_LABELS_PATH}/remove"
 REMINDERS_PATH = "reminders"
 LOCATION_REMINDERS_PATH = "location_reminders"
+SYNC_PATH = "sync"
 
 AUTHORIZE_PATH = "authorize"
 ACCESS_TOKEN_PATH = "access_token"  # noqa: S105

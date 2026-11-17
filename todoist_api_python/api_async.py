@@ -23,6 +23,7 @@ from todoist_api_python._core.endpoints import (
     SHARED_LABELS_PATH,
     SHARED_LABELS_REMOVE_PATH,
     SHARED_LABELS_RENAME_PATH,
+    SYNC_PATH,
     TASKS_COMPLETED_BY_COMPLETION_DATE_PATH,
     TASKS_COMPLETED_BY_DUE_DATE_PATH,
     TASKS_FILTER_PATH,
@@ -52,6 +53,7 @@ from todoist_api_python.models import (
     Reminder,
     Section,
     Task,
+    UserPlanLimits,
 )
 
 if TYPE_CHECKING:
@@ -1871,6 +1873,28 @@ class TodoistAPIAsync:
             self._request_id_fn() if self._request_id_fn else None,
         )
         return response.is_success
+
+    async def get_user_plan_limits(self) -> UserPlanLimits:
+        """
+        Get the features and limits of the user's plan.
+
+        Todoist only exposes plan limits through the Sync API, so this reads them
+        from there.
+
+        :return: The limits of the user's current plan, and of the plan available
+                 as an upgrade, if any.
+        :raises httpx2.HTTPStatusError: If the API request fails.
+        """
+        endpoint = get_api_url(SYNC_PATH)
+        response = await post_async(
+            self._client,
+            endpoint,
+            self._token,
+            self._request_id_fn() if self._request_id_fn else None,
+            data={"sync_token": "*", "resource_types": ["user_plan_limits"]},
+        )
+        data = response_json_dict(response)
+        return UserPlanLimits.from_dict(data["user_plan_limits"])
 
 
 T = TypeVar("T")

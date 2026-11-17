@@ -26,6 +26,7 @@ from tests.data.test_defaults import (
     DEFAULT_TASK_RESPONSE,
     DEFAULT_TASKS_RESPONSE,
     DEFAULT_TOKEN,
+    DEFAULT_USER_PLAN_LIMITS_SYNC_RESPONSE,
     PaginatedItems,
     PaginatedResults,
 )
@@ -41,6 +42,7 @@ from todoist_api_python.models import (
     Reminder,
     Section,
     Task,
+    UserPlanLimits,
 )
 
 if TYPE_CHECKING:
@@ -267,6 +269,18 @@ def default_location_reminders_list() -> list[list[LocationReminder]]:
         [LocationReminder.from_dict(result) for result in response["results"]]
         for response in DEFAULT_LOCATION_REMINDERS_RESPONSE
     ]
+
+
+@pytest.fixture
+def default_user_plan_limits_sync_response() -> dict[str, Any]:
+    return DEFAULT_USER_PLAN_LIMITS_SYNC_RESPONSE
+
+
+@pytest.fixture
+def default_user_plan_limits() -> UserPlanLimits:
+    return UserPlanLimits.from_dict(
+        DEFAULT_USER_PLAN_LIMITS_SYNC_RESPONSE["user_plan_limits"]
+    )
 
 
 @pytest.fixture

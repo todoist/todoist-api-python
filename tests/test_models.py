@@ -9,6 +9,7 @@ from tests.data.test_defaults import (
     DEFAULT_DUE_RESPONSE,
     DEFAULT_DURATION_RESPONSE,
     DEFAULT_LABEL_RESPONSE,
+    DEFAULT_PLAN_LIMITS_RESPONSE,
     DEFAULT_PROJECT_RESPONSE,
     DEFAULT_PROJECT_RESPONSE_2,
     DEFAULT_SECTION_RESPONSE,
@@ -23,9 +24,11 @@ from todoist_api_python.models import (
     Due,
     Duration,
     Label,
+    PlanLimits,
     Project,
     Section,
     Task,
+    UserPlanLimits,
 )
 
 unexpected_data = {"unexpected_key": "some value"}
@@ -210,3 +213,27 @@ def test_auth_result_from_dict() -> None:
 
     assert auth_result.access_token == token
     assert auth_result.state == state
+
+
+def test_plan_limits_from_dict() -> None:
+    sample_data = dict(DEFAULT_PLAN_LIMITS_RESPONSE)
+    sample_data.update(unexpected_data)
+
+    plan_limits = PlanLimits.from_dict(sample_data)
+
+    assert plan_limits.plan_name == sample_data["plan_name"]
+    assert plan_limits.reminders == sample_data["reminders"]
+    assert plan_limits.max_reminders_location == sample_data["max_reminders_location"]
+    assert plan_limits.max_projects == sample_data["max_projects"]
+
+
+def test_user_plan_limits_from_dict_without_upgrade() -> None:
+    plan_limits = UserPlanLimits.from_dict(
+        {"current": {"plan_name": "business", "reminders": True}, "next": None}
+    )
+
+    assert plan_limits.next is None
+    assert plan_limits.current.plan_name == "business"
+    assert plan_limits.current.reminders is True
+    # The API leaves out some documented limits.
+    assert plan_limits.current.workspace_filters is None

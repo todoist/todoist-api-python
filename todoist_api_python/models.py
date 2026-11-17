@@ -257,3 +257,50 @@ class LocationReminder(JSONPyWizard):
     radius: int
     type: str
     is_deleted: bool
+
+
+@dataclass
+class PlanLimits(JSONPyWizard):
+    class _(JSONPyWizard.Meta):  # noqa:N801
+        v1 = True
+
+    plan_name: str
+
+    # The API omits some documented limits, such as `workspace_filters`.
+    activity_log: bool | None = None
+    activity_log_limit: int | None = None
+    automatic_backups: bool | None = None
+    calendar_feeds: bool | None = None
+    comments: bool | None = None
+    completed_tasks: bool | None = None
+    custom_app_icon: bool | None = None
+    customization_color: bool | None = None
+    email_forwarding: bool | None = None
+    filters: bool | None = None
+    labels: bool | None = None
+    max_collaborators: int | None = None
+    max_filters: int | None = None
+    max_labels: int | None = None
+    max_projects: int | None = None
+    max_reminders_location: int | None = None
+    max_reminders_time: int | None = None
+    max_sections: int | None = None
+    max_tasks: int | None = None
+    max_workspace_filters: int | None = None
+    project_icons: bool | None = None
+    reminders: bool | None = None
+    table_layout: bool | None = None
+    templates: bool | None = None
+    upload_limit_mb: int | None = None
+    uploads: bool | None = None
+    weekly_trends: bool | None = None
+    workspace_filters: bool | None = None
+
+
+@dataclass
+class UserPlanLimits(JSONPyWizard):
+    class _(JSONPyWizard.Meta):  # noqa:N801
+        v1 = True
+
+    current: PlanLimits
+    next: PlanLimits | None = None

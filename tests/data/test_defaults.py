@@ -338,3 +338,55 @@ DEFAULT_AUTH_RESPONSE = {
     "access_token": "123456789",
     "state": "somestate",
 }
+
+DEFAULT_PLAN_LIMITS_RESPONSE: dict[str, Any] = {
+    "activity_log": True,
+    "activity_log_limit": 7,
+    "advanced_permissions": False,
+    "automatic_backups": False,
+    "calendar_feeds": True,
+    "calendar_layout": False,
+    "comments": True,
+    "completed_tasks": True,
+    "custom_app_icon": False,
+    "customization_color": False,
+    "deadlines": False,
+    "durations": False,
+    "email_forwarding": True,
+    "filters": True,
+    "labels": True,
+    "max_calendar_accounts": 1,
+    "max_collaborators": 5,
+    "max_filters": 3,
+    "max_labels": 500,
+    "max_projects": 5,
+    "max_reminders_location": 300,
+    "max_reminders_time": 700,
+    "max_sections": 20,
+    "max_tasks": 300,
+    "plan_name": "free",
+    "project_icons": True,
+    "reminders": False,
+    "reminders_at_due": True,
+    "table_layout": False,
+    "templates": True,
+    "upload_limit_mb": 5,
+    "uploads": True,
+    "weekly_trends": True,
+}
+
+DEFAULT_NEXT_PLAN_LIMITS_RESPONSE = dict(DEFAULT_PLAN_LIMITS_RESPONSE)
+DEFAULT_NEXT_PLAN_LIMITS_RESPONSE.update(
+    {"plan_name": "pro", "max_projects": 300, "reminders": True}
+)
+
+DEFAULT_USER_PLAN_LIMITS_SYNC_RESPONSE: dict[str, Any] = {
+    "full_sync": True,
+    "sync_status": {},
+    "sync_token": "TnYUZEpuzf2FMA9qzyY3j4xky6dXiYejmSO85S5paZ_a9y1FI85mBbIWZGpW",
+    "temp_id_mapping": {},
+    "user_plan_limits": {
+        "current": DEFAULT_PLAN_LIMITS_RESPONSE,
+        "next": DEFAULT_NEXT_PLAN_LIMITS_RESPONSE,
+    },
+}
