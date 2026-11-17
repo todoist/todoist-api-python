@@ -1571,6 +1571,7 @@ class TodoistAPI:
         due_lang: LanguageCode | None = None,
         due_timezone: str | None = None,
         service: Literal["email", "push"] | None = None,
+        notify_uid: str | None = None,
     ) -> Reminder:
         """
         Create a new reminder.
@@ -1587,6 +1588,8 @@ class TodoistAPI:
         :param due_lang: Language for parsing the due date.
         :param due_timezone: Timezone for the due date.
         :param service: The notification service ("email" or "push").
+        :param notify_uid: The ID of the user to notify, who must be a collaborator
+            of the task's project. Defaults to the user creating the reminder.
         :return: The newly created reminder.
         :raises httpx2.HTTPStatusError: If the API request fails.
         """
@@ -1607,6 +1610,7 @@ class TodoistAPI:
             minute_offset=minute_offset,
             due=due or None,
             service=service,
+            notify_uid=notify_uid,
         )
 
         response = post(
@@ -1630,6 +1634,7 @@ class TodoistAPI:
         due_lang: LanguageCode | None = None,
         due_timezone: str | None = None,
         service: Literal["email", "push"] | None = None,
+        notify_uid: str | None = None,
     ) -> Reminder:
         """
         Update an existing reminder.
@@ -1644,6 +1649,8 @@ class TodoistAPI:
         :param due_lang: Language for parsing the due date.
         :param due_timezone: Timezone for the due date.
         :param service: The notification service ("email" or "push").
+        :param notify_uid: The ID of the user to notify, who must be a collaborator
+            of the task's project.
         :return: The updated reminder.
         :raises httpx2.HTTPStatusError: If the API request fails.
         """
@@ -1662,6 +1669,7 @@ class TodoistAPI:
             minute_offset=minute_offset,
             due=due or None,
             service=service,
+            notify_uid=notify_uid,
         )
 
         response = post(
@@ -1755,6 +1763,7 @@ class TodoistAPI:
         loc_trigger: Literal["on_enter", "on_leave"],
         *,
         radius: int | None = None,
+        notify_uid: str | None = None,
     ) -> LocationReminder:
         """
         Create a new location reminder.
@@ -1765,6 +1774,8 @@ class TodoistAPI:
         :param loc_long: The longitude coordinate.
         :param loc_trigger: When to trigger ("on_enter" or "on_leave").
         :param radius: The radius in meters (default: 100).
+        :param notify_uid: The ID of the user to notify, who must be a collaborator
+            of the task's project. Defaults to the user creating the reminder.
         :return: The newly created location reminder.
         :raises httpx2.HTTPStatusError: If the API request fails.
         """
@@ -1777,6 +1788,7 @@ class TodoistAPI:
             loc_long=loc_long,
             loc_trigger=loc_trigger,
             radius=radius,
+            notify_uid=notify_uid,
         )
 
         response = post(
@@ -1798,6 +1810,7 @@ class TodoistAPI:
         loc_long: str | None = None,
         loc_trigger: Literal["on_enter", "on_leave"] | None = None,
         radius: int | None = None,
+        notify_uid: str | None = None,
     ) -> LocationReminder:
         """
         Update an existing location reminder.
@@ -1810,6 +1823,8 @@ class TodoistAPI:
         :param loc_long: The longitude coordinate.
         :param loc_trigger: When to trigger ("on_enter" or "on_leave").
         :param radius: The radius in meters.
+        :param notify_uid: The ID of the user to notify, who must be a collaborator
+            of the task's project.
         :return: The updated location reminder.
         :raises httpx2.HTTPStatusError: If the API request fails.
         """
@@ -1821,6 +1836,7 @@ class TodoistAPI:
             loc_long=loc_long,
             loc_trigger=loc_trigger,
             radius=radius,
+            notify_uid=notify_uid,
         )
 
         response = post(
